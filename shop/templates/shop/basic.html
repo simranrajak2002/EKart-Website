@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    
+  {% block tailwind %} {% endblock %}  
+
+  <title>{% block title%} {% endblock %}</title>
+  <style>
+     
+    #imga {
+    margin: -7px;
+    padding: 0px;
+    height: 41px;
+    width: 154px;
+    }
+   
+
+   
+  </style>
+   {% block css%} {% endblock %}
+</head>
+
+<body>
+{% load static %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/shop"><img id="imga" src="{% static '/images/abc.png' %}" alt="" loading="lazy"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" id="home">
+          <a class="nav-link"  href="/shop">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item" id="aboutUs">
+          <a class="nav-link"  href="/shop/about">About Us</a>
+        </li>
+         <li class="nav-item" id="tracker">
+           <a class="nav-link" href="/shop/tracker">Tracker </a>
+         </li>
+          <li class="nav-item" id="contactUs">
+            <a class="nav-link"  href="/shop/contact">Contact Us</a>
+          </li>
+          {% if not user.is_authenticated %}
+          <li class="nav-item" id="register">
+            <a class="nav-link" href="/shop/register">Register</a>
+          </li>
+          {% endif %}
+          
+        
+      </ul>
+      <form method='get' action='/shop/search/' class="form-inline my-2 my-lg-0">
+        {% if user.is_authenticated %}
+        <strong class="mx-2 text-gray-500">Hello! {{request.user}} </strong>
+        {% endif %}
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" id="search" name='search'
+          aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
+      </form>
+      <button type="button" class="btn btn-danger mx-4" id="popcart" data-container="body"
+        data-toggle="popover"
+        data-placement="bottom" data-html='true' data-content="">
+        Cart(<span id='cart'>0</span>)
+      </button> 
+      {% if user.is_authenticated %}
+      <a href="/shop/logout/"><button class="btn btn-primary">Logout</button></a>
+      {% else %}
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Login
+      </button>
+      {% endif %}
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-gray-400">
+              <h5 class="modal-title text-gray-900" id="exampleModalLabel">Login - FunkyCart</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body bg-gray-200">
+              <form action='/shop/login/' method="post">{% csrf_token %}
+              <div class="bg-gray-200 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+                <h2 class="text-gray-900 text-lg font-medium title-font mb-3">Enter Username and Password</h2>
+                
+                <input
+                  class="bg-white rounded border border-gray-400 focus:outline-none focus:border-red-500 text-base px-4 py-1 mb-4"
+                  placeholder="username" name="username" type="text">
+                <input
+                  class="bg-white rounded border border-gray-400 focus:outline-none focus:border-red-500 text-base px-4 py-1 mb-4"
+                  placeholder="password" name="password" type="password">
+                <button type="submit"
+                  class="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">Sign In</button>
+                <p class="text-xs text-gray-500 mt-3">Register your account if you don't have one.</p>
+                <a href="/shop/forgotpass/"><button type="button" class="btn btn-link">Forgot Password</button></a>
+                
+              </div></form>
+            </div>
+            <div class="modal-footer bg-gray-400">
+              <a href="/shop/register/" >
+              <button type="button" class="btn btn-primary">Register</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  {% block body %} {% endblock %}
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+  </script>
+
+  {% block js %} 
+  
+  {% endblock %}
+ 
+</body>
+
+</html>

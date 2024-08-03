@@ -1,0 +1,2 @@
+Hello There !!!!!!!
+I am static folder and blog.txt

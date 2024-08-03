@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register-FunkyCart</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+
+            height: 135px;
+            
+        }
+
+        #image {
+            float: none;
+            position: absolute;
+
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .redbtn {
+            height: 42px;
+            margin-left: 187px;
+            width: 203px;
+        }
+
+        .container {
+            border: 2px solid transparent;
+            margin-top: 5px;
+        }
+        .alert{
+            margin-bottom:0rem;
+
+        }
+    </style>
+</head>
+
+<body>
+    {% for message in messages%}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert"> Error!!
+        <strong> {{message}} </strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% load static %}
+    <nav class="navbar">
+        <a id="image" href="/shop">
+            <img src="{% static '/images/abc.png' %}" alt="" loading="lazy">
+
+        </a>
+    </nav>
+
+    <div class="container px-5 bg-gray-200 py-20 mx-auto">
+        <div class="flex flex-col text-center  w-full mb-12">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-Red">Registration Form
+            </h1>
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Once you register here you will be able to order any
+                product.
+                You can also contact us when you have any query.</p>
+        </div>
+        <form action="/shop/register/" method='post'>{% csrf_token %}
+            <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:px-0">
+                <input name="first_name" 
+                    class="flex-grow w-full bg-gray-800 rounded border border-gray-700 text-white focus:outline-none focus:border-teal-500 text-base px-4 py-2 mr-4 mb-4 sm:mb-0"
+                    placeholder="First Name" type="text" required>
+                <input name="last_name"
+                    class="flex-grow w-full bg-gray-800 rounded border border-gray-700 text-white focus:outline-none focus:border-teal-500 text-base px-4 py-2 mr-4 mb-4 sm:mb-0"
+                    placeholder="Last Name" type="text" required>
+            </div>
+            <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:px-0">
+                <input name="username"
+                    class="flex-grow w-full bg-gray-800 rounded border border-gray-700 text-white focus:outline-none focus:border-teal-500 text-base px-4 py-2 mr-4 mb-4 sm:mb-0"
+                    placeholder="Username ex-mnsamnis123" type="text" required>
+                <input name="email"
+                    class="flex-grow w-full bg-gray-800 rounded border border-gray-700 text-white focus:outline-none focus:border-teal-500 text-base px-4 py-2 mr-4 mb-4 sm:mb-0"
+                    placeholder="Email" type="email" required></div>
+            <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:px-0">
+                <input name="password"
+                    class="flex-grow w-full bg-gray-800 rounded border border-gray-700 text-white focus:outline-none focus:border-teal-500 text-base px-4 py-2 mr-4 mb-4 sm:mb-0"
+                    placeholder="password" type="password" required>
+                <input name="password2"
+                    class="flex-grow w-full bg-gray-800 rounded border border-gray-700 text-white focus:outline-none focus:border-teal-500 text-base px-4 py-2 mr-4 mb-4 sm:mb-0"
+                    placeholder="confirm password" type="password" required>
+
+            </div>
+            <div class="flex lg:w-1/2 w-full sm:flex-row flex-col mx-auto px-8 sm:px-0">
+                <button type="submit"
+                    class="text-white bg-teal-500 border-0 py-2 px-8 focus:outline-none hover:bg-teal-600 rounded text-lg redbtn">Submit</button>
+            </div>
+        </form>
+        </div>
+        
+
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
+</script>
+
+</html>
